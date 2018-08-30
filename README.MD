@@ -1,4 +1,4 @@
-![IDX Publisher]
+[IDX Publisher]
 A IDX Broker Integration Package for Concrete5
 ---
 Badge | Status
