@@ -4,7 +4,7 @@ IDX Publisher
 ---
 A IDX Broker Integration Package for Concrete5
 
-[IDX Broker] -> [Concrete5]
+![IDX Broker](.github/IDXB.png) -> ![Concrete5](.github/concrete-logo_b.png)
 
 Badge | Status
 --- | ---
