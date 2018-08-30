@@ -1,4 +1,4 @@
-![IDX Publisher](.github/buildingbridge_trans.png)
+![IDX Publisher](.github/buildingbridge-50.png)
 
 # IDX Publisher
 
