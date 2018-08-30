@@ -1,4 +1,4 @@
-IDX Publisher
+![IDX Publisher](.github/buildingbridge_trans.png)
 ---
 A IDX Broker Integration Package for Concrete5
 
