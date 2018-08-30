@@ -1,7 +1,7 @@
-**IDX Publisher**
-
-A IDX Broker Integration Package for Concrete5
+IDX Publisher
 ---
+A IDX Broker Integration Package for Concrete5
+
 Badge | Status
 --- | ---
 **Code Climate** | [![Code Climate](https://codeclimate.com/github/openopps/openopps-platform/badges/gpa.svg)](https://codeclimate.com/github/BuildingBridge/IDX_Publisher)
@@ -10,3 +10,4 @@ Badge | Status
 ---
 
 **General Overview**
+---
