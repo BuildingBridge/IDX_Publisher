@@ -6,7 +6,7 @@ A IDX Broker Integration Package for Concrete5
 Badge | Status
 --- | ---
 **Platform** | ![Concrete5](.github/concrete-logo_b.png)
-**Integrations | ![IDX Broker](.github/IDXB.png)
+**Integrations** | ![IDX Broker](.github/IDXB.png)
 **Codebase** | ![PHP version](https://img.shields.io/badge/PHP-7.0%20%2B-green.svg?style=plastic&logo=php&logoColor=white)
 **Issues** | [![GitHub issues](https://img.shields.io/badge/Issues-View-orange.svg?style=plastic&logo=github&logoColor=white)](https://github.com/BuildingBridge/IDX_Publisher/issues)
 **Status** | [![GitHub version](https://img.shields.io/badge/Active-Development-orange.svg?style=plastic&logo=github&logoColor=white)](https://github.com/BuildingBridge/IDX_Publisher/releases)
