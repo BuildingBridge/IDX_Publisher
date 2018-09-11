@@ -1,0 +1,13 @@
+{
+    "name": "c5labs/block-boilerplate",
+    "description": "A block boilerplate to start building from.",
+    "type": "concrete5-block",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Doug Forester",
+            "email": "doug.forester@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

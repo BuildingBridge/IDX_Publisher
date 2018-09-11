@@ -1,0 +1,16 @@
+{
+    "name": "c5labs/idx_publisher_package",
+    "description": "IDX Broker Package for Concrete",
+    "type": "concrete5-package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Doug Forester",
+            "email": "doug.forester@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "composer/installers": "dev-concrete5-installation-path-updates"
+    }
+}
