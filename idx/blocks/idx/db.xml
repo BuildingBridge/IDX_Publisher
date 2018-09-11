@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+	<table name="idx">
+		<field name="bID" type="I">
+			<key />
+			<unsigned />
+		</field>
+		<field name="listing" type="I" size="161">
+	    </field>
+	</table>
+</schema>

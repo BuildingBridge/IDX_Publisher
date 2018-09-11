@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+	<table name="slider">
+		<field name="bID" type="I">
+			<key />
+			<unsigned />
+		</field>
+		<field name="slider" type="I" size="161">
+	    </field>
+		<field name="blocks" type="I" size="161">
+	    </field>
+	</table>
+</schema>
