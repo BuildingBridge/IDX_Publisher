@@ -43,13 +43,7 @@ class Controller extends Package
 		
 		
 		        $newsPage = $this->addPage('property_listings', 'Property Listings', 'Programmatic Page Property Listings', 'page', 'full', 1,$pkg);
-  
-	$eaku = AttributeKeyCategory::getByHandle('collection');
-$eaku->setAllowAttributeSets(AttributeKeyCategory::ASET_ALLOW_SINGLE);
-$set = $eaku->addSet('listings',t('Listings'),$pkg, 0);
-$asID = $set->asID; 
- 
-//now create attributes under the set:
+
 $key = CollectionAttributeKey::getByHandle('my_attr');
 if (!$key || !intval($key->getAttributeKeyID())) {
    $attr_type = AttributeType::getByHandle('textarea');
@@ -108,33 +102,6 @@ protected function addPage($pathOrCID, $name, $description, $type, $template, $p
         return $page;
     }
 
-    protected function addPageTypeWithAllPublishTarget($typeHandle, $typeName, $defaultTemplateHandle, $allowedTemplates, $templateArray, $pkg, $startingPointCID=0, $selectorFormFactor=0)
-    {
-        //Get Page Type if it already exists
-        $pt = PageType::getByHandle($typeHandle);
-        if(!is_object($pt)) {
-            //Add Page Type, then set the publishing target
-            $pto = $this->addPageType($typeHandle, $typeName, $defaultTemplateHandle, $allowedTemplates, $templateArray, $pkg);
-            $pt = $this->setAllPublishTarget($pto, $startingPointCID, $selectorFormFactor);
-        }
-        
-        return $pt;
-    }
-    
- 
-    protected function addPageTypeWithPageTypePublishTarget($typeHandle, $typeName, $defaultTemplateHandle, $allowedTemplates, $templateArray, $parentPageTypeID, $pkg, $startingPointCID=0, $selectorFormFactor=0)
-    {
-        //Get the Page Type if it already exists
-        $pt = PageType::getByHandle($typeHandle);
-        if(!is_object($pt)) {
-            //Add the Page Type, then set the publishing target
-            $pto = $this->addPageType($typeHandle, $typeName, $defaultTemplateHandle, $allowedTemplates, $templateArray, $pkg);
-            $pt = $this->setPageTypePublishTarget($pto, $parentPageTypeID, $startingPointCID, $selectorFormFactor);
-        }
-        
-        return $pt;
-    }
-    
  
     protected function addPageTypeWithParentPagePublishTarget($typeHandle, $typeName, $defaultTemplateHandle, $allowedTemplates, $templateArray, $parentPageCID, $pkg) 
     {
@@ -149,16 +116,6 @@ protected function addPage($pathOrCID, $name, $description, $type, $template, $p
         return $pt;
     }
     
-    /**
-     * Add New Page Type
-     * @param string $typeHandle New Type Handle
-     * @param string $typeName New Type Name
-     * @param string $defaultTemplateHandle Default Page Template Handle
-     * @param string $allowedTemplates (A|C|X) A for all, C for selected only, X for non-selected only
-     * @param array $templateArray Array or Iterator of selected templates, see `$allowedTemplates`
-     * @param object $pkg
-     * @return object Page Type Object
-     */
     protected function addPageType($typeHandle, $typeName, $defaultTemplateHandle, $allowedTemplates, $templateArray, $pkg)
     {
         //Get required Template objects (these can be handles after 8)
@@ -179,59 +136,8 @@ protected function addPage($pathOrCID, $name, $description, $type, $template, $p
 
         return $pt;
     }
+
     
-    /**
-     * Set All Pages Publish Target for Page Type
-     * @param object $pageTypeObject Page Type Object 
-     * @param int $startingPointCID CID of page to be underneath, or 0 for any page
-     * @param bool $selectorFormFactor 1 for in page sitemap, 0 for popup sitemap
-     * @return object Page Type Object
-     */
-    protected function setAllPublishTarget($pageTypeObject, $startingPointCID=0, $selectorFormFactor=0)
-    {
-        $allTarget = PublishTargetType::getByHandle('all');
-        $configuredTarget = $allTarget->configurePageTypePublishTarget(
-            $pageTypeObject,
-            array(
-            'selectorFormFactorAll' => $selectorFormFactor, // this is the form factor of the page selector. null or false is the standard sitemap popup. 1 or true would be the in page sitemap
-            'startingPointPageIDall' => ($startingPointCID) // If you only want this available below a certain explicit page, but anywhere nested under that page, set this page id. null or false sets this to anywhere
-            )
-        );
-        $pageTypeObject->setConfiguredPageTypePublishTargetObject($configuredTarget);
-        
-        return $pageTypeObject;
-    }
-    
-    /**
-     * Set Page Type Publish Target for Page Type
-     * @param object $pageTypeObject Page Type Object
-     * @param int $parentPageTypeID Parent Page Type ID
-     * @param int $startingPointCID CID of page to be underneath, or 0 for any page
-     * @param bool $selectorFormFactor 1 for in page sitemap, 0 for popup sitemap
-     * @return object Page Type Object
-     */
-    protected function setPageTypePublishTarget($pageTypeObject, $parentPageTypeID, $startingPointCID=0, $selectorFormFactor=0)
-    {
-        $typeTarget = PublishTargetType::getByHandle('page_type');
-        $configuredTypeTarget = $typeTarget->configurePageTypePublishTarget(
-            $pageTypeObject, //the one being set up, NOT the target one
-            array (
-                'ptID' => $parentPageTypeID,
-                'startingPointPageIDPageType' => $startingPointCID, // this is the form factor of the page selector. null or false is the standard sitemap popup. 1 or true would be the in page sitemap
-                'selectorFormFactorPageType' => $selectorFormFactor // If you only want this available below a certain explicit page, but anywhere nested under that page, set this page id. null or false sets this to anywhere
-            )
-        );
-        $pageTypeObject->setConfiguredPageTypePublishTargetObject($configuredTypeTarget);
-        
-        return $pageTypeObject;
-    }
-    
-    /**
-     * Set Parent Page Publish Target for Page Type
-     * @param object $pageTypeObject Page Type Object
-     * @param int $parentPageCID Parent Page CID
-     * @return object Page Type Object
-     */
     protected function setParentPagePublishTarget($pageTypeObject, $parentPageCID)
     {
         $parentTarget = PublishTargetType::getByHandle('parent_page');
