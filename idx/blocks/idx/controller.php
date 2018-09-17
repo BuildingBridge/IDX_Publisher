@@ -4,7 +4,12 @@ use \Concrete\Core\Block\BlockController;
 use Loader;
 use \File;
 use Page;
-use \Concrete\Core\Block\View\BlockView as BlockView;
+use Database;
+
+use PageType;
+use PageTemplate;
+use \Concrete\Core\Page\Type\PublishTarget\Type\Type as PublishTargetType;
+
 
 defined('C5_EXECUTE') or die(_("Access Denied.")); 
 
@@ -16,6 +21,7 @@ class Controller extends BlockController
 	protected $btInterfaceHeight = "400";
 
 	public function on_page_view() {
+
 		$html = Loader::helper('html');
 		$this->addHeaderItem($html->css('idx.css', 'idx'));
 	}
@@ -50,7 +56,9 @@ class Controller extends BlockController
 
 		}
 		
+		
 	public function logic($response){
+
 		?>
 		<div class="container">
 		
@@ -59,8 +67,10 @@ class Controller extends BlockController
 		<?php
 		
 		$i=0;
-		
+		if(!empty($response)){
 		foreach($response as $key => $val){
+			
+
 		
 		echo '<a href='.$val['fullDetailsURL'].'>';
 		?>
@@ -78,7 +88,11 @@ class Controller extends BlockController
 		$i=0;
 		?>
 			</div>
-		<?php echo '</a>';}?>
+		<?php echo '</a>';} }
+		else {
+			echo "Sorry Response is empty. Please check IDX Key configrations";
+			}
+		?>
 			
  		 </div>  
 	
@@ -87,15 +101,27 @@ class Controller extends BlockController
 		<?php
 		
 		}	
+		
+	public function credentials(){
+		$content = '';
+		$db = Database::connection();
+		$v = array(1);
+		$q = 'SELECT `key` FROM `idx_credentials` WHERE `status`=?';
+		
+			$resultaat = $db->fetchColumn($q,$v);
+			return $resultaat;
+		}	
 	public function listings(){
 		
 		$url='https://api.idxbroker.com/clients/featured';
 		$method = 'GET';
-
+  		$results=$this->credentials();
+		
+		
 		//curl Header
 		$headers = array(
 			'Content-Type: application/x-www-form-urlencoded',
-			'accesskey: -M01XNFJLFa-BneZ8U9_FV', 
+			'accesskey:'.$results, 
 			'outputtype: json'
 		);
 		//making curl call
@@ -110,4 +136,6 @@ class Controller extends BlockController
        
 			<?php
 		}
+		
+
 }

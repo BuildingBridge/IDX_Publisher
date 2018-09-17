@@ -4,6 +4,7 @@ use \Concrete\Core\Block\BlockController;
 use Loader;
 use \File;
 use Page;
+use Database;
 use \Concrete\Core\Block\View\BlockView as BlockView;
 
 defined('C5_EXECUTE') or die(_("Access Denied.")); 
@@ -21,7 +22,15 @@ class Controller extends BlockController
 		$this->addHeaderItem($html->css('idx.css', 'idx'));
 
 	}
-
+     public function credentials(){
+		$content = '';
+		$db = Database::connection();
+		$v = array(1);
+		$q = 'SELECT `key` FROM `idx_credentials` WHERE `status`=?';
+		
+			$resultaat = $db->fetchColumn($q,$v);
+			return $resultaat;
+		}	
     public function getBlockTypeDescription()
     {
         return t("Add Featured Listings Slider to Your Site");
@@ -137,11 +146,11 @@ $slide++;
 		
 		$url='https://api.idxbroker.com/clients/featured';
 		$method = 'GET';
-
+		$results=$this->credentials();
 		//curl Header
 		$headers = array(
 			'Content-Type: application/x-www-form-urlencoded',
-			'accesskey: -M01XNFJLFa-BneZ8U9_FV', 
+			'accesskey:'.$results, 
 			'outputtype: json'
 		);
 		//making curl call
